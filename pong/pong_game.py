@@ -15,9 +15,28 @@ class PongGame(GraphicWidget):
 
     def __init__(self):
         super(PongGame, self).__init__()
+         self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
+         self._keyboard.bind(on_key_down=self._on_keyboard_down)
 
+          def _keyboard_closed(self):
+        self._keyboard.unbind(on_key_down=self._on_keyboard_down)
+        self._keyboard = None
+
+    def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
+        print keycode
+        return True
+
+
+
+        # make a ball
         self.ball = PongBall()
+        # add it to the stage
         self.add_widget(self.ball)
+
+        self.balltwo = PongBall()
+        self.balltwo.x = 50
+        self.balltwo.y = 50
+        self.add_widget(self.balltwo)
 
         self.player1 = PongPaddle()
         self.add_widget(self.player1)
@@ -28,12 +47,18 @@ class PongGame(GraphicWidget):
 
     def serve_ball(self):
 
+
         self.ball.center = self.center
         self.ball.velocity_x = -3
         self.ball.velocity_y = 4
 
+        self.balltwo.center = self.center
+        self.balltwo.velocity_x = 3
+        self.balltwo.velocity_y = -4
+
     def update(self, dt):
-        for b in [self.ball]:
+        for b in [ self.ball, self.balltwo ] :
+
             b.move()
 
             # bounce of paddles
@@ -42,9 +67,10 @@ class PongGame(GraphicWidget):
 
             # bounce ball off bottom or top
             if b.top > self.top:
-                b.velocity_y = -4
+                b.velocity_y = random
             elif b.y < self.y:
-                b.velocity_y = 4
+                b.velocity_y = random
+
 
             # went of to a side to score point?
             if b.x < self.x:
@@ -59,3 +85,8 @@ class PongGame(GraphicWidget):
             self.player1.center_y = touch.y
         if touch.x > self.width - self.width / 3:
             self.player2.center_y = touch.y
+
+
+
+#speeds up again because did not chage throughout the whole thing. Not sure how to make it
+#so it remains.

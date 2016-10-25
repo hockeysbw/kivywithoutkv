@@ -10,11 +10,13 @@ class PongBall(GraphicWidget):
     GraphicClass = Ellipse
 
     # For Ellipse
-    width = NumericProperty(4)
-    height = NumericProperty(4)
+    width = NumericProperty(100)
+    height = NumericProperty(100)
     x = NumericProperty(0)
     y = NumericProperty(0)
-    color_tuple = (1, 0.5, 1, 1)
+
+    #             R   G   B   A
+    color_tuple = (.16, .93, .77, 1)
 
     # Stuff we made
     velocity_x = 0
